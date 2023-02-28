@@ -94,7 +94,7 @@ dl_yt() {
     done
 
 # Patch revanced
-java -jar revanced-cli*.jar -a *youtube.apk -b revanced-patches*.jar -m revanced-integrations*.apk -o revanced-${USER}.apk ${INCLUDE_PATCHES} ${EXCLUDE_PATCHES} 2>&1
+java -jar revanced-cli*.jar -a *youtube.apk -b revanced-patches*.jar -m revanced-integrations*.apk -o revanced.apk ${INCLUDE_PATCHES} ${EXCLUDE_PATCHES}
 # Find and select apksigner binary
 #apksigner="$(find $ANDROID_SDK_ROOT/build-tools -name apksigner | sort -r | head -n 1)"
 # Sign apks (https://github.com/tytydraco/public-keystore)
