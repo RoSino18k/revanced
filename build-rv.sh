@@ -8,26 +8,6 @@ do
 source $var
 
 
-# Revanced-patches
-curl -s https://api.github.com/repos/${USER}/revanced-patches/releases/latest \
-| grep "browser_download_url.*jar" \
-| cut -d : -f 2,3 \
-| tr -d \" \
-| wget -qi -
-
-# Revanced CLI
-curl -s https://api.github.com/repos/${USER}/revanced-cli/releases/latest \
-| grep "browser_download_url.*jar" \
-| cut -d : -f 2,3 \
-| tr -d \" \
-| wget -qi -
-
-# ReVanced Integrations
-curl -s https://api.github.com/repos/${USER}/revanced-integrations/releases/latest \
-| grep "browser_download_url.*apk" \
-| cut -d : -f 2,3 \
-| tr -d \" \
-| wget -qi -
 
 
 # Repair
@@ -92,6 +72,27 @@ dl_yt() {
         ${apks[$apk]}
     fi
     done
+
+# Revanced-patches
+curl -s https://api.github.com/repos/${USER}/revanced-patches/releases/latest \
+| grep "browser_download_url.*jar" \
+| cut -d : -f 2,3 \
+| tr -d \" \
+| wget -qi -
+
+# Revanced CLI
+curl -s https://api.github.com/repos/${USER}/revanced-cli/releases/latest \
+| grep "browser_download_url.*jar" \
+| cut -d : -f 2,3 \
+| tr -d \" \
+| wget -qi -
+
+# ReVanced Integrations
+curl -s https://api.github.com/repos/${USER}/revanced-integrations/releases/latest \
+| grep "browser_download_url.*apk" \
+| cut -d : -f 2,3 \
+| tr -d \" \
+| wget -qi -
 
 # Patch revanced
 java -jar revanced-cli*.jar -a *youtube.apk -b revanced-patches*.jar -m revanced-integrations*.apk -o revanced.apk ${INCLUDE_PATCHES} ${EXCLUDE_PATCHES}
