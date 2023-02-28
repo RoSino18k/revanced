@@ -73,13 +73,13 @@ dl_yt() {
 
 	echo "Choosing version '${last_ver}'"
 	local base_apk="com.google.android.youtube.apk"
-	if [ ! -f "$base_apk" ]; then
+	#if [ ! -f "$base_apk" ]; then
 		declare -r dl_url=$(dl_apk "https://www.apkmirror.com/apk/google-inc/youtube/youtube-${last_ver//./-}-release/" \
 			"APK</span>[^@]*@\([^#]*\)" \
 			"$base_apk")
 		echo "YouTube version: ${last_ver}"
 		echo "downloaded from: [APKMirror - YouTube]($dl_url)"
-	fi
+	#fi
 }
 
 ## Main
