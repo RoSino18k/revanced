@@ -31,7 +31,7 @@ curl -s https://api.github.com/repos/${USER}/revanced-integrations/releases/late
 
 
 # Repair
-declare -A apks
+apks=
 apks["youtube-${USER}.apk"]=dl_yt
 
 ## Functions
@@ -86,7 +86,7 @@ dl_yt() {
 ## Main
 
 
-    for apk in "${!apks}"; do
+    for apk in "${!apks[@]}"; do
     if [ ! -f $apk ]; then
         echo "Downloadingg $apk"
         version=${VERSION}
