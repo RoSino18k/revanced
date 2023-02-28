@@ -83,9 +83,9 @@ dl_yt() {
 
 ## Main
 
-FILES = $apks["youtube-${USER}.apk"];
-    if [ ! -f ${FILE} ]; then
-        echo "Downloading ${FILE}"
+
+    if [ ! -f $apks["youtube-${USER}.apk"] ]; then
+        echo "Downloading ${USER}"
         version=${VERSION}
         #${apks[$apk]}
     fi
