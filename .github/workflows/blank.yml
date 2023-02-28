@@ -1,0 +1,52 @@
+name: Build-ReVanced
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: "10 10 * * *"
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v3
+
+      - name: Set up jdk
+        uses: actions/setup-java@v3.10.0
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      
+      - name: build yt revanced no-root
+        run: bash build-rv.sh         
+
+      - name: Generate date 
+        run: echo "DATE=$(date +%F)" >> $GITHUB_ENV          
+
+      - name: Release Build
+        uses: softprops/action-gh-release@v1
+        with:
+          files: yt-revanced*.apk 
+          name: Build ${{ env.DATE }}
+          tag_name: ${{ env.DATE }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Delete older releases
+        uses: dev-drprasad/delete-older-releases@v0.2.1
+        with:
+          keep_latest: 3
+          delete_tags: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 1
