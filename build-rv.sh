@@ -88,14 +88,14 @@ dl_yt() {
 
     for apk in "${!apks[@]}"; do
     if [ ! -f $apk ]; then
-        echo "Downloading $apk"
+        echo "Downloadingg $apk"
         version=${VERSION}
         ${apks[$apk]}
     fi
-done
+    done
 
 # Patch revanced
-java -jar revanced-cli*.jar -a *youtube*.apk -b revanced-patches*.jar -m revanced-integrations*.apk -o revanced.apk ${INCLUDE_PATCHES} ${EXCLUDE_PATCHES} -c 2>&1 | tee -a Patch.log
+java -jar revanced-cli*.jar -a *youtube*.apk -b revanced-patches*.jar -m revanced-integrations*.apk -o revanced-${USER}.apk ${INCLUDE_PATCHES} ${EXCLUDE_PATCHES} -c 2>&1 | tee -a Patch.log
 
 # Find and select apksigner binary
 apksigner="$(find $ANDROID_SDK_ROOT/build-tools -name apksigner | sort -r | head -n 1)"
