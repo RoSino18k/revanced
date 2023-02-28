@@ -1,13 +1,11 @@
 #!/bin/bash
 # File containing all patches and YouTube version 
-#source config-rv.txt
+source config-rv.txt
 # source config-rve.txt
 # Revanced-patches
 
 
-for var in config-rv.txt config-rve.txt
-do
-source $var
+
 # Revanced-patches
 curl -s https://api.github.com/repos/${USER}/revanced-patches/releases/latest \
 | grep "browser_download_url.*jar" \
@@ -103,5 +101,3 @@ apksigner="$(find $ANDROID_SDK_ROOT/build-tools -name apksigner | sort -r | head
 ${apksigner} sign --ks public.jks --ks-key-alias public --ks-pass pass:public --key-pass pass:public --in ./revanced.apk --out ./yt-${NAME}-v${VERSION}.apk
 
 
-
-done
