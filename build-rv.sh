@@ -1,9 +1,11 @@
 #!/bin/bash
 # File containing all patches and YouTube version 
-source config-rv.txt
+#source config-rv.txt
 # source config-rve.txt
 # Revanced-patches
-
+for var in config-rv.txt config-rve.txt
+do
+source $var
 
 
 # Revanced-patches
@@ -68,7 +70,6 @@ dl_yt() {
 	echo "Downloading YouTube"
 	local last_ver
 	last_ver="$version"
-	last_ver="${last_ver:-$(get_apk_vers "https://www.apkmirror.com/uploads/?appcategory=youtube" | get_largest_ver)}"
 
 	echo "Choosing version '${last_ver}'"
 	local base_apk="com.google.android.youtube.apk"
@@ -100,4 +101,4 @@ apksigner="$(find $ANDROID_SDK_ROOT/build-tools -name apksigner | sort -r | head
 # Sign apks (https://github.com/tytydraco/public-keystore)
 ${apksigner} sign --ks public.jks --ks-key-alias public --ks-pass pass:public --key-pass pass:public --in ./revanced.apk --out ./yt-${NAME}-v${VERSION}.apk
 
-
+done
