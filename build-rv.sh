@@ -30,7 +30,7 @@ curl -s https://api.github.com/repos/${USER}/revanced-integrations/releases/late
 
 # Repair
 declare -A apks
-apks["youtube.apk"]=dl_yt
+apks["youtube-${USER}.apk"]=dl_yt
 
 ## Functions
 
@@ -83,13 +83,13 @@ dl_yt() {
 
 ## Main
 
-for apk in "${!apks[@]}"; do
+apk = apks["youtube-${USER}.apk"]
     if [ ! -f $apk ]; then
         echo "Downloading $apk"
         version=${VERSION}
         ${apks[$apk]}
     fi
-done
+
 
 # Patch revanced
 java -jar revanced-cli*.jar -a *youtube.apk -b revanced-patches*.jar -m revanced-integrations*.apk -o revanced.apk ${INCLUDE_PATCHES} ${EXCLUDE_PATCHES} -c 2>&1 | tee -a Patch.log
