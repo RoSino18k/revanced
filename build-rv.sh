@@ -95,7 +95,7 @@ dl_yt() {
 
 
 # Patch revanced
-java -jar revanced-cli*.jar -a com.google.android.${USER}.youtube.apk -b revanced-patches*.jar -m revanced-integrations*.apk -o revanced.apk ${INCLUDE_PATCHES} ${EXCLUDE_PATCHES}
+java -jar revanced-cli*.jar -a com.google.android.${USER}.youtube.apk -b revanced-patches*.jar -m revanced-integrations*.apk -o revanced-${USER}.apk ${INCLUDE_PATCHES} ${EXCLUDE_PATCHES}
 
 
 # Find and select apksigner binary
