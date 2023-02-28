@@ -5,7 +5,8 @@
 # Revanced-patches
 
 
-for var in config-rv.txt config-rve.txt do
+for var in config-rv.txt config-rve.txt
+do
 source $var
 # Revanced-patches
 curl -s https://api.github.com/repos/${USER}/revanced-patches/releases/latest \
@@ -87,7 +88,7 @@ dl_yt() {
 
     for apk in "${!apks[@]}"; do
     if [ ! -f $apk ]; then
-        echo "Downloadingg $apk"
+        echo "$apk"
         version=${VERSION}
         ${apks[$apk]}
     fi
