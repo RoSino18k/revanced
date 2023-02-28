@@ -7,7 +7,26 @@ for var in config-rv.txt config-rve.txt
 do
 source $var
 
+# Revanced-patches
+curl -s https://api.github.com/repos/${USER}/revanced-patches/releases/latest \
+| grep "browser_download_url.*jar" \
+| cut -d : -f 2,3 \
+| tr -d \" \
+| wget -qi -
 
+# Revanced CLI
+curl -s https://api.github.com/repos/${USER}/revanced-cli/releases/latest \
+| grep "browser_download_url.*jar" \
+| cut -d : -f 2,3 \
+| tr -d \" \
+| wget -qi -
+
+# ReVanced Integrations
+curl -s https://api.github.com/repos/${USER}/revanced-integrations/releases/latest \
+| grep "browser_download_url.*apk" \
+| cut -d : -f 2,3 \
+| tr -d \" \
+| wget -qi -
 
 
 # Repair
@@ -52,7 +71,7 @@ dl_yt() {
 	last_ver="$version"
 
 	echo "Choosing version '${last_ver}'"
-	local base_apk="com.google.android.${USER}.youtube.apk"
+	local base_apk="com.google.android.youtube.apk"
 	#if [ ! -f "$base_apk" ]; then
 		declare -r dl_url=$(dl_apk "https://www.apkmirror.com/apk/google-inc/youtube/youtube-${last_ver//./-}-release/" \
 			"APK</span>[^@]*@\([^#]*\)" \
@@ -69,33 +88,16 @@ dl_yt() {
     if [ ! -f $apk ]; then
         echo "$apk"
         version=${VERSION}
-        ${apks[$apk]}
+#        ${apks[$apk]}
     fi
     done
 
-# Revanced-patches
-curl -s https://api.github.com/repos/${USER}/revanced-patches/releases/latest \
-| grep "browser_download_url.*jar" \
-| cut -d : -f 2,3 \
-| tr -d \" \
-| wget -qi -
 
-# Revanced CLI
-curl -s https://api.github.com/repos/${USER}/revanced-cli/releases/latest \
-| grep "browser_download_url.*jar" \
-| cut -d : -f 2,3 \
-| tr -d \" \
-| wget -qi -
-
-# ReVanced Integrations
-curl -s https://api.github.com/repos/${USER}/revanced-integrations/releases/latest \
-| grep "browser_download_url.*apk" \
-| cut -d : -f 2,3 \
-| tr -d \" \
-| wget -qi -
 
 # Patch revanced
 java -jar revanced-cli*.jar -a *youtube.apk -b revanced-patches*.jar -m revanced-integrations*.apk -o revanced.apk ${INCLUDE_PATCHES} ${EXCLUDE_PATCHES}
+
+
 # Find and select apksigner binary
 #apksigner="$(find $ANDROID_SDK_ROOT/build-tools -name apksigner | sort -r | head -n 1)"
 # Sign apks (https://github.com/tytydraco/public-keystore)
