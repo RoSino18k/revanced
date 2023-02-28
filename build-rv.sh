@@ -2,11 +2,12 @@
 # File containing all patches and YouTube version 
 #source config-rv.txt
 # source config-rve.txt
+# Revanced-patches
+
 
 for var in config-rv.txt config-rve.txt
 do
 source $var
-
 # Revanced-patches
 curl -s https://api.github.com/repos/${USER}/revanced-patches/releases/latest \
 | grep "browser_download_url.*jar" \
@@ -27,6 +28,7 @@ curl -s https://api.github.com/repos/${USER}/revanced-integrations/releases/late
 | cut -d : -f 2,3 \
 | tr -d \" \
 | wget -qi -
+
 
 # Repair
 declare -A apks
@@ -84,12 +86,13 @@ dl_yt() {
 ## Main
 
 
-    if [ ! -f $apks["youtube-${USER}.apk"] ]; then
-        echo "Downloading ${USER}"
+    for apk in "${!apks[@]}"; do
+    if [ ! -f $apk ]; then
+        echo "Downloading $apk"
         version=${VERSION}
-        #${apks[$apk]}
+        ${apks[$apk]}
     fi
-
+done
 
 # Patch revanced
 java -jar revanced-cli*.jar -a *youtube-${USER}.apk -b revanced-patches*.jar -m revanced-integrations*.apk -o revanced-${USER}.apk ${INCLUDE_PATCHES} ${EXCLUDE_PATCHES} -c 2>&1 | tee -a Patch.log
