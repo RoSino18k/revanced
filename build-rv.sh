@@ -83,16 +83,16 @@ dl_yt() {
 
 ## Main
 
-apk = apks["youtube-${USER}.apk"]
-    if [ ! -f $apk ]; then
-        echo "Downloading $apk"
+FILES = $apks["youtube-${USER}.apk"];
+    if [ ! -f ${FILE} ]; then
+        echo "Downloading ${FILE}"
         version=${VERSION}
         #${apks[$apk]}
     fi
 
 
 # Patch revanced
-java -jar revanced-cli*.jar -a *youtube-${USER}.apk -b revanced-patches*.jar -m revanced-integrations*.apk -o revanced.apk ${INCLUDE_PATCHES} ${EXCLUDE_PATCHES} -c 2>&1 | tee -a Patch.log
+java -jar revanced-cli*.jar -a *youtube-${USER}.apk -b revanced-patches*.jar -m revanced-integrations*.apk -o revanced-${USER}.apk ${INCLUDE_PATCHES} ${EXCLUDE_PATCHES} -c 2>&1 | tee -a Patch.log
 
 # Find and select apksigner binary
 apksigner="$(find $ANDROID_SDK_ROOT/build-tools -name apksigner | sort -r | head -n 1)"
