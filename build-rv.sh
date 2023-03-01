@@ -6,6 +6,7 @@
 for var in config-rv.txt config-rve.txt
 do
 source $var
+rm -f revanced-patches*.jar revanced-cli*.jar revanced-integrations*.apk
 
 # Revanced-patches
 curl https://api.github.com/repos/${USER}/revanced-patches/releases/latest \
