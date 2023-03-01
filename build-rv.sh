@@ -13,6 +13,7 @@ curl https://api.github.com/repos/${USER}/revanced-patches/releases/latest \
 | cut -d : -f 2,3 \
 | tr -d \" \
 | wget -qi -
+mv revanced-patches*.jar revanced-patches-${USER}.jar
 
 # Revanced CLI
 curl https://api.github.com/repos/${USER}/revanced-cli/releases/latest \
@@ -20,6 +21,7 @@ curl https://api.github.com/repos/${USER}/revanced-cli/releases/latest \
 | cut -d : -f 2,3 \
 | tr -d \" \
 | wget -qi -
+mv revanced-cli*.jar revanced-cli-${USER}.jar
 
 # ReVanced Integrations
 curl https://api.github.com/repos/${USER}/revanced-integrations/releases/latest \
@@ -27,7 +29,7 @@ curl https://api.github.com/repos/${USER}/revanced-integrations/releases/latest 
 | cut -d : -f 2,3 \
 | tr -d \" \
 | wget -qi -
-
+mv revanced-integrations*.apk revanced-integrations-${USER}.apk
 
 # Repair
 declare -A apks
@@ -71,7 +73,7 @@ dl_yt() {
 	last_ver="$version"
 
 	echo "Choosing version '${last_ver}'"
-	local base_apk="com.google.android.${USER}.youtube.apk"
+	local base_apk="com.google.android.youtube.apk"
 	#if [ ! -f "$base_apk" ]; then
 		declare -r dl_url=$(dl_apk "https://www.apkmirror.com/apk/google-inc/youtube/youtube-${last_ver//./-}-release/" \
 			"APK</span>[^@]*@\([^#]*\)" \
@@ -95,12 +97,14 @@ dl_yt() {
 
 
 # Patch revanced
-java -jar revanced-cli*.jar -a com.google.android.${USER}.youtube.apk -b revanced-patches*.jar -m revanced-integrations*.apk -o revanced-${USER}.apk ${INCLUDE_PATCHES} ${EXCLUDE_PATCHES}
+java -jar revanced-cli-${USER}.jar -a com.google.android.youtube.apk -b revanced-patches-${USER}.jar -m revanced-integrations-${USER}.apk -o revanced-${USER}.apk ${INCLUDE_PATCHES} ${EXCLUDE_PATCHES} -c
 
 
 # Find and select apksigner binary
-#apksigner="$(find $ANDROID_SDK_ROOT/build-tools -name apksigner | sort -r | head -n 1)"
+apksigner="$(find $ANDROID_SDK_ROOT/build-tools -name apksigner | sort -r | head -n 1)"
+
+
 # Sign apks (https://github.com/tytydraco/public-keystore)
-#${apksigner} sign --ks public.jks --ks-key-alias public --ks-pass pass:public --key-pass pass:public --in ./revanced-${USER}.apk --out ./yt-${NAME}-v${VERSION}.apk
+${apksigner} sign --ks public.jks --ks-key-alias public --ks-pass pass:public --key-pass pass:public --in ./revanced-${USER}.apk --out ./yt-${NAME}-v${VERSION}.apk
 
 done
