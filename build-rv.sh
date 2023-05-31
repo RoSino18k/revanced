@@ -101,8 +101,8 @@ dl_yt() {
 java -jar revanced-cli-${USER}.jar -a com.google.android.youtube.apk -b revanced-patches-${USER}.jar -m revanced-integrations-${USER}.apk -o revanced-${USER}.apk ${INCLUDE_PATCHES} ${EXCLUDE_PATCHES} -c --keystore=ks.keystore
 
 # Find and select apksigner binary
-#apksigner="$(find $ANDROID_SDK_ROOT/build-tools -name apksigner | sort -r | head -n 1)"
+apksigner="$(find $ANDROID_SDK_ROOT/build-tools -name apksigner | sort -r | head -n 1)"
 
 
 # Sign apks (https://github.com/tytydraco/public-keystore)
-#${apksigner} sign --ks public.jks --ks-key-alias public --ks-pass pass:public --key-pass pass:public --in ./revanced-${USER}.apk --out ./yt-${NAME}-v${VERSION}.apk
+${apksigner} sign --ks public.jks --ks-key-alias public --ks-pass pass:public --key-pass pass:public --in ./revanced-${USER}.apk --out ./yt-${NAME}-v${VERSION}.apk
