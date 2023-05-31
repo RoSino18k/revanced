@@ -3,9 +3,9 @@
 #source config-rv.txt
 # source config-rve.txt
 # Revanced-patches
-for var in config-rv.txt config-rve.txt
-do
-source $var
+#for var in config-rv.txt config-rve.txt
+#do
+source config-rve.txt
 rm -f revanced-patches*.jar revanced-cli*.jar revanced-integrations*.apk
 
 # Revanced-patches
@@ -98,7 +98,7 @@ dl_yt() {
 
 
 # Patch revanced
-java -jar revanced-cli-${USER}.jar -a com.google.android.youtube.apk -b revanced-patches-${USER}.jar -m revanced-integrations-${USER}.apk -o revanced-${USER}.apk ${INCLUDE_PATCHES} ${EXCLUDE_PATCHES} -c
+java --keystore=ks.keystore -jar revanced-cli-${USER}.jar -a com.google.android.youtube.apk -b revanced-patches-${USER}.jar -m revanced-integrations-${USER}.apk -o revanced-${USER}.apk ${INCLUDE_PATCHES} ${EXCLUDE_PATCHES} -c
 
 
 # Find and select apksigner binary
@@ -107,5 +107,3 @@ java -jar revanced-cli-${USER}.jar -a com.google.android.youtube.apk -b revanced
 
 # Sign apks (https://github.com/tytydraco/public-keystore)
 #${apksigner} sign --ks public.jks --ks-key-alias public --ks-pass pass:public --key-pass pass:public --in ./revanced-${USER}.apk --out ./yt-${NAME}-v${VERSION}.apk
-
-done
