@@ -98,8 +98,7 @@ dl_yt() {
 
 
 # Patch revanced
-java --keystore=ks.keystore -jar revanced-cli-${USER}.jar -a com.google.android.youtube.apk -b revanced-patches-${USER}.jar -m revanced-integrations-${USER}.apk -o revanced-${USER}.apk ${INCLUDE_PATCHES} ${EXCLUDE_PATCHES} -c
-
+java -jar revanced-cli-${USER}.jar -a com.google.android.youtube.apk -b revanced-patches-${USER}.jar -m revanced-integrations-${USER}.apk -o revanced-${USER}.apk ${INCLUDE_PATCHES} ${EXCLUDE_PATCHES} -c --keystore=ks.keystore
 
 # Find and select apksigner binary
 #apksigner="$(find $ANDROID_SDK_ROOT/build-tools -name apksigner | sort -r | head -n 1)"
